@@ -8,8 +8,8 @@
     "watch": "chokidar 'src/**/*.js' -c 'npm run build'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Matthew Simo <matthew.a.simo@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
