@@ -1,0 +1,86 @@
+body {
+  background-color: #FFF;
+  color: #484848;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Roboto',
+    'Helvetica Neue',
+    Helvetica,
+    sans-serif;
+  line-height: 1.5;
+  margin: 0 auto;
+  padding: 2rem;
+  max-width: 1000px;
+}
+
+section {
+  width: 100%;
+  float: left;
+}
+
+@media screen and (min-width: 500px) {
+  section {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  section {
+    width: 33%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  section {
+    width: 25%;
+  }
+}
+
+ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  text-align: center;
+}
+
+.copy-text-input {
+  left: -800px;
+  opacity: 0;
+  position: fixed;
+  top: -800px;
+}
+
+.copy-text-text {
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.happy-section .copy-text-text:hover {
+  background-color: rgba( 0, 255, 255, .3 );
+}
+.mad-section .copy-text-text:hover {
+  background-color: rgba( 241, 124, 41, .3 );
+}
+.sad-section .copy-text-text:hover {
+  background-color: rgba( 41, 84, 241, .3 );
+}
+.love-section .copy-text-text:hover {
+  background-color: rgba( 241, 41, 235, .3 );
+}
+.notification {
+  background-color: rgba( 55, 55, 55, .6 );
+  border-radius: 3px;
+  color: #FFF;
+  padding: 1em 2em;
+  position: fixed;
+  right: 30px;
+  top: 30px;
+}
+
+
