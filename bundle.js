@@ -19671,7 +19671,7 @@ module.exports = validateDOMNesting;
 module.exports = require('./lib/React');
 
 },{"./lib/React":55}],168:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -19679,7 +19679,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -19701,6 +19701,136 @@ var CopyText = function (_Component) {
   }
 
   _createClass(CopyText, [{
+    key: "handleClick",
+    value: function handleClick(e) {
+      var _props = this.props;
+      var text = _props.text;
+      var onCopy = _props.onCopy;
+
+
+      clipboard.writeText(text);
+      onCopy(text + " copied!");
+      console.log("copying electron style");
+      setTimeout(function () {
+        onCopy("");
+      }, 1500);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _props2 = this.props;
+      var text = _props2.text;
+      var children = _props2.children;
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          { className: "copy-text-text", onClick: function onClick(e) {
+              return _this2.handleClick(e);
+            } },
+          children
+        )
+      );
+    }
+  }]);
+
+  return CopyText;
+}(_react.Component);
+
+CopyText.propTypes = {
+  text: _react.PropTypes.string.isRequired,
+  children: _react.PropTypes.node.isRequired,
+  onCopy: _react.PropTypes.func.isRequired
+};
+
+exports.default = CopyText;
+
+},{"react":167}],169:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _webCopyText = require('./web-copy-text');
+
+var _webCopyText2 = _interopRequireDefault(_webCopyText);
+
+var _electronCopyText = require('./electron-copy-text');
+
+var _electronCopyText2 = _interopRequireDefault(_electronCopyText);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CopyText = function (_Component) {
+  _inherits(CopyText, _Component);
+
+  function CopyText() {
+    _classCallCheck(this, CopyText);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(CopyText).apply(this, arguments));
+  }
+
+  _createClass(CopyText, [{
+    key: 'render',
+    value: function render() {
+      var CopyTextComponent = window.env === 'electron' ? _electronCopyText2.default : _webCopyText2.default;
+      return _react2.default.createElement(CopyTextComponent, this.props);
+    }
+  }]);
+
+  return CopyText;
+}(_react.Component);
+
+exports.default = CopyText;
+
+},{"./electron-copy-text":168,"./web-copy-text":170,"react":167}],170:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WebCopyText = function (_Component) {
+  _inherits(WebCopyText, _Component);
+
+  function WebCopyText() {
+    _classCallCheck(this, WebCopyText);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(WebCopyText).apply(this, arguments));
+  }
+
+  _createClass(WebCopyText, [{
     key: 'handleClick',
     value: function handleClick(e) {
       var input = this.refs.copyText;
@@ -19746,18 +19876,18 @@ var CopyText = function (_Component) {
     }
   }]);
 
-  return CopyText;
+  return WebCopyText;
 }(_react.Component);
 
-CopyText.propTypes = {
+WebCopyText.propTypes = {
   text: _react.PropTypes.string.isRequired,
   children: _react.PropTypes.node.isRequired,
   onCopy: _react.PropTypes.func.isRequired
 };
 
-exports.default = CopyText;
+exports.default = WebCopyText;
 
-},{"react":167}],169:[function(require,module,exports){
+},{"react":167}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19814,7 +19944,7 @@ Section.propTypes = {
 
 exports.default = Section;
 
-},{"./copy-text":168,"react":167}],170:[function(require,module,exports){
+},{"./copy-text":169,"react":167}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19900,7 +20030,7 @@ var App = function (_Component) {
 
 exports.default = App;
 
-},{"../data":172,"./components/section":169,"react":167,"react-dom":29}],171:[function(require,module,exports){
+},{"../data":174,"./components/section":171,"react":167,"react-dom":29}],173:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19908,7 +20038,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ["(◕‿◕✿)", "(◠‿◠✿)", "(◠﹏◠✿)", "\（＊＾Ｕ＾）人（≧Ｖ≦＊）/", "ôヮô", "∧( ‘Θ’ )∧", "(¤﹏¤)", "●‿●", "ʕ·ᴥ·ʔ", "＼（＾○＾）人（＾○＾）／", "ヾ(＠⌒▽⌒＠)ﾉ", "(°∀°)", "ヾ｜￣ー￣｜ﾉ", " (☉‿☉✿)", "┏(＾0＾)┛┗(＾0＾) ┓", "  (◡‿◡✿)", "✿◕ ‿ ◕✿ ", "ヽ(‘ ∇‘ )ノ", " ☆(❁‿❁)☆ ", "❀◕ ‿ ◕❀", "ヽ(^◇^*)/", "(•⊙ω⊙•)", "!⑈ˆ~ˆ!⑈", "(*^ -^*)", "(⊙‿⊙✿)", "◕3◕ ", "(ﾟヮﾟ)", "¢‿¢", "ヅ", "●ᴥ●", "(∪ ◡ ∪)", "≖‿≖", "≧◡≦", "٩◔‿◔۶", "｡◕ ‿ ◕｡", "ヾ(＠＾▽＾＠)ﾉ", "◃┆◉◡◉┆▷", "(✿◠‿◠)", "(￣ｰ￣)", "╰(◡‿◡✿╰) ", "~,~", "  (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧", "(*~▽~)", "❀‿❀", "◕‿◕", "(^L^)", "(^▽^)", "  ◕ ◡ ◕", "(◕‿◕✿)", "（ ；´Д｀）", "⊙﹏⊙", "  ✿｡✿", "ヽ(゜∇゜)ノ", "  ｡(✿‿✿)｡", "(´ー｀)", "ツ", "q(❂‿❂)p", "( ́ ◕◞ε◟◕`)", "☆(◒‿◒)☆", "(∩▂∩)", "(¬‿¬)", "(^Ｏ^)", "ʘ‿ʘ", "（’◎’）", "(◜௰◝)", "(^ｰ^)", "(o´ω｀o) ", " (^з^)-☆", "(◕ω◕✿)", "(づ｡◕‿‿◕｡)づ", "(ﾟ▽^*)", "(⌒o⌒)", "  (｡◕‿◕｡) ", "ت", "(. ﾟーﾟ)", "१✌˚◡˚✌५", "＼(●~▽~●)", "(*˘︶˘*)", "(✪㉨✪)", "(ᅌᴗᅌ* )", "^L^", "(\/) (°„°) (\/)", "＼(*^▽^*)/", "(◠△◠✿)", "( ಠ◡ಠ )", "(〃^∇^)ﾉ", "^^", "|◔◡◉|", "(●⌒∇⌒●)", "⊂◉‿◉つ", "✌.ʕʘ‿ʘʔ.✌", "(*・∀・*)人(*・∀・*)", "＼(^-^)／", "∩(︶▽︶)∩", "（☉∀☉）", "(´ω｀)", "●﹏●", "（　´∀｀）☆", "•ᴥ•", "✿◕ ‿ ◕✿", "(≧◡≦)", "(◡‿◡✿)", "(･ｪ-)", "^‿^", "٩(̾●̮̮̃̾•̃̾)۶", "≖‿≖", "(⊙ω⊙✿)", "٩(-̮̮̃•̃)", " (´･ω･`)", "◤(¬‿¬)◥", "^.^", "(•‿•)", "（＾⊆＾）", "^( '‿' )^", "☆d(o⌒∇⌒o)b", "∑(゜Д゜;)", "(▰˘◡˘▰)", "(• ε •)", " ( ͡° ͜ʖ ͡°)", "(\/) (°,,°) (\/)", "(￣(エ)￣)", "{◕ ◡ ◕}", "(>‘o’)>", "シ", "(❀‿❀)", "< (^^,) >", "ヾ(●⌒∇⌒●)ﾉ", "（　´∀｀）", "☾˙❀‿❀˙☽", "°٢°", "^o^", "(=ﾟωﾟ)ﾉ", "٩(●̮̮̃•̃)۶", "(☞ﾟ∀ﾟ)☞", "(=゜ω゜)", " (｡✿‿✿｡)", "ó‿ó", "◎[▪‿▪]◎", "(▰˘◡˘▰) ", "(︶ω︶)", "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧", "(◠ω◠✿)", "٩(^‿^)۶", "(●*∩_∩*●)", "٩(-̮̮̃-̃)۶", "<丶´Д｀>", " (✿◠‿◠)  ", "ヽ(´▽｀)ノ", "(°⌣°)", "☆(❁‿❁)☆", "(० ्०)", "٩(-̮̮̃•̃)۶", "（╹ェ╹）", "ᵔᴥᵔ", "•(⌚_⌚)•", "ヽ(　´　∇　｀　)ノ", "（ミ￣ー￣ミ）", "(─‿‿─)", "  ~(^з^)-  ", "(*≗*)", "⊙ω⊙  ", "(´･ω･`)", "(｡◕‿◕｡)", ".=^.^=", "(◠︿◠✿)", "ッ", "(`･ω･´)", "´ ▽ ` )ﾉ", "(´∀｀)", "(◑‿◐)", "ヽ(ﾟｰﾟ*ヽ)ヽ(*ﾟｰﾟ*)ﾉ(ﾉ*ﾟｰﾟ)ﾉ", "˚ᆺ˚", "ヽ(〃＾▽＾〃)ﾉ", "｡◕‿◕｡", " ❀◕ ‿ ◕❀", "( °٢° )", "Ü", "(●´ω｀●)", "<('o'<)", "◕‿◕", " ᵔᴥᵔ", "◙‿◙"];
 
-},{}],172:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19954,7 +20084,7 @@ exports.mad = _mad2.default;
 exports.love = _love2.default;
 exports.sections = sections;
 
-},{"./happy":171,"./love":173,"./mad":174,"./sad":175}],173:[function(require,module,exports){
+},{"./happy":173,"./love":175,"./mad":176,"./sad":177}],175:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19962,15 +20092,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ["♥‿♥", "★~(◡‿◡✿)", "(ノ・ω・)ノ", "★~(◡︿◕✿)", "♥╣[-_-]╠♥", "（⌒_⌒）", " >‿‿◕ ", "★~(◡△◕✿)", "⎝ᄽ⏝⏠⎠", "(~￣▽￣)~", "★~(◡﹏⊙✿)", "★~(◠﹏◕✿)", "(◕‿-)", "★~(◡﹏◕✿)", "★~(◠﹏⊙✿)", "★~(◠ω◕✿)", " ♥╭╮♥ ", "★~(◡‿⊙✿)", "(｡♥‿♥｡)", "★~(◡△⊙✿)", "★~(◠‿◕✿)", "v(=∩_∩=)ﾌ", "♥╭╮♥", "(ΘεΘ)", "★~(◡‿◕✿)", "★~(◡ω◕✿)", "( ^▽^)σ)~O~)", "★~(◠△◕✿)", "(✿ ♥‿♥)", "★~(◠△⊙✿)", "(╯3╰)", "★~(◠ω⊙✿)", "★~(◡△◡✿)", "★~(◡﹏◡✿)", "  (●´ω｀●)", "★~(◡︿⊙✿)", "☼.☼", "★~(◠︿⊙✿)", "★~(◡ω◡✿)", "ヘ(^_^ヘ)", "(n˘v˘•)¬", "( ･_･)♡", "★~(◡ω⊙✿)"];
 
-},{}],174:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = ["٩(͡๏̮͡๏)۶", "ಠ益ಠ", "ლ(́◉◞౪◟◉‵ლ)", "ლ（´∀`ლ）", "ↁ_ↁ", "щ(ಠ益ಠщ)", "(-＿- )ノ", "o(≧o≦)o", "(ಠ_ರ)", "〴⋋_⋌〵", "щ(ಥДಥщ)", "(┛❍ᴥ❍﻿)┛彡┻━┻", "(￣□￣)", "\ᇂ_ᇂ\\", "☉▵☉凸", "(◡︿◡✿)", "┬──┬ ノ( ゜-゜ノ)", "(⋋▂⋌)", "ಠ╭╮ಠ", "ಠoಠ", "╚(•⌂•)╝", "ヾ(｀ε´)ノ", "(॓_॔) ", "‷̗ↂ凸ↂ‴̖", "(>.<)", "┬─┬ノ( º _ ºノ) ", "(ﾉಥ益ಥ）ﾉ﻿ ┻━┻", "►.◄", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ /(.□. \)", "┬──┬ ¯\_(ツ)", "(ʘ∇ʘ)ク 彡 ┻━┻", "⋋_⋌", "◔_◔", "ಠ_ృ", "┬─┬ノ( º _ ºノ)", "(͡๏̯͡๏)", "щ（ﾟДﾟщ）", "ᕦ(ò_óˇ)ᕤ", "(≧o≦)", "(⊙̃.o", "ヾ(ﾟдﾟ)ﾉ", "( ﾟдﾟ)", "┻━┻ ︵ ლ(ಠ益ಠლ)", "⊙.◎)", "».«", "ლ(́◉◞౪◟◉‵ლ) ", "ᇂﮌᇂ)", "ヽ(｀Д´)ﾉ", "ಠ▃ಠ", "(╹◡╹)凸", "ლ(ﾟдﾟლ)", "ლ(́◉◞౪◟◉‵ლ", "⇎_⇎ ॓_॔", "{(>_<)}", "┬──┬ ︵(╯。□。）╯", "ಠ~ಠ", "~̯~", "מּ_מּ לּ_לּ", "(╯ಠ_ರೃ)╯︵ ┻━┻", "凸(¬‿¬)凸", "(ι´Д｀)ﾉ", "(-''-)", "(┛◉Д◉)┛彡┻━┻", "ヽ(ｏ`皿′ｏ)ﾉ", "ヽ(๏∀๏ )ﾉ", "(≧ω≦)", "┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻", "(╯°□°）╯︵ ┻━┻", " ˙０˙", "(×̯×)", "(*´Д`)ﾊｧﾊｧ", "►_◄", "أ ̯ أ", "(◣_◢)", "(╯◕_◕)╯", "(╯°□°）╯︵ ┻━┻", "ಠ_ಠ", "ლ(╹◡╹ლ)", "/(ò.ó)┛彡┻━┻", "  凸(¬‿¬)凸  ", "(ノಠ益ಠ)ノ彡┻━┻", "(ノÒ益Ó)ノ彡▔▔▏", "（￣へ￣）", "ლ(╹ε╹ლ)", "(╯°□°）╯︵ /( ‿⌓‿ )\\", "॓_॔", "¬_¬", "ᇂ_ᇂ", "ಠ_ಠ", ">.<", "Ծ_Ծ", "(¬_¬)", "(≖︿≖✿)", " ≧∇≦ ", "(┛◉Д◉)┛彡┻━┻", "(◡ω◡✿)", "  ˇ︿ˇ", "╭∩╮（︶︿︶）╭∩╮", "句_句", "★~(◡︿◡✿)"];
+exports.default = ["ಠ益ಠ", "ლ(́◉◞౪◟◉‵ლ)", "ლ（´∀`ლ）", "ↁ_ↁ", "щ(ಠ益ಠщ)", "(-＿- )ノ", "o(≧o≦)o", "(ಠ_ರ)", "〴⋋_⋌〵", "щ(ಥДಥщ)", "(┛❍ᴥ❍﻿)┛彡┻━┻", "(￣□￣)", "\ᇂ_ᇂ\\", "☉▵☉凸", "(◡︿◡✿)", "┬──┬ ノ( ゜-゜ノ)", "(⋋▂⋌)", "ಠ╭╮ಠ", "ಠoಠ", "╚(•⌂•)╝", "ヾ(｀ε´)ノ", "(॓_॔) ", "‷̗ↂ凸ↂ‴̖", "(>.<)", "┬─┬ノ( º _ ºノ) ", "(ﾉಥ益ಥ）ﾉ﻿ ┻━┻", "►.◄", "(ノಠ益ಠ)ノ彡┻━┻", "(╯°□°）╯︵ /(.□. \)", "┬──┬ ¯\_(ツ)", "(ʘ∇ʘ)ク 彡 ┻━┻", "⋋_⋌", "◔_◔", "ಠ_ృ", "┬─┬ノ( º _ ºノ)", "(͡๏̯͡๏)", "щ（ﾟДﾟщ）", "ᕦ(ò_óˇ)ᕤ", "(≧o≦)", "(⊙̃.o", "ヾ(ﾟдﾟ)ﾉ", "( ﾟдﾟ)", "┻━┻ ︵ ლ(ಠ益ಠლ)", "⊙.◎)", "».«", "ლ(́◉◞౪◟◉‵ლ) ", "ᇂﮌᇂ)", "ヽ(｀Д´)ﾉ", "ಠ▃ಠ", "(╹◡╹)凸", "ლ(ﾟдﾟლ)", "ლ(́◉◞౪◟◉‵ლ", "⇎_⇎ ॓_॔", "{(>_<)}", "┬──┬ ︵(╯。□。）╯", "ಠ~ಠ", "~̯~", "מּ_מּ לּ_לּ", "(╯ಠ_ರೃ)╯︵ ┻━┻", "凸(¬‿¬)凸", "(ι´Д｀)ﾉ", "(-''-)", "(┛◉Д◉)┛彡┻━┻", "ヽ(ｏ`皿′ｏ)ﾉ", "ヽ(๏∀๏ )ﾉ", "(≧ω≦)", "┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻", "(╯°□°）╯︵ ┻━┻", " ˙０˙", "(×̯×)", "(*´Д`)ﾊｧﾊｧ", "►_◄", "أ ̯ أ", "(◣_◢)", "(╯◕_◕)╯", "(╯°□°）╯︵ ┻━┻", "ಠ_ಠ", "ლ(╹◡╹ლ)", "/(ò.ó)┛彡┻━┻", "  凸(¬‿¬)凸  ", "(ノಠ益ಠ)ノ彡┻━┻", "(ノÒ益Ó)ノ彡▔▔▏", "（￣へ￣）", "ლ(╹ε╹ლ)", "(╯°□°）╯︵ /( ‿⌓‿ )\\", "॓_॔", "¬_¬", "ᇂ_ᇂ", "ಠ_ಠ", ">.<", "Ծ_Ծ", "(¬_¬)", "(≖︿≖✿)", " ≧∇≦ ", "(┛◉Д◉)┛彡┻━┻", "(◡ω◡✿)", "  ˇ︿ˇ", "╭∩╮（︶︿︶）╭∩╮", "句_句", "٩(͡๏̮͡๏)۶", "★~(◡︿◡✿)"];
 
-},{}],175:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19978,7 +20108,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ["ಥ_ಥ", "(-’๏_๏’-)", "˚⌇˚", "o(╥﹏╥)o", "(⊙﹏⊙✿)", "●︿●", "( /)w(\✿)", "(╯︵╰,)", "(︶︹︺)", "(◡﹏◡✿)", "(✖﹏✖)", "‘︿’", "v( ‘.’ )v", "◄.►", "(ㄒoㄒ)", "⊙︿⊙", "(◕︿◕✿)", "ਉ_ਉ", "┐(‘～`；)┌", "(︶︹︺)", "흫_흫", "ب_ب", "╮(─▽─)╭", "ಥ‿ಥ", "(-’_’-)", "(╥╥)", "(•̪●)", "(∩︵∩)", "(o_-)", "(｡-_-｡)", "(╯_╰)", "(╥_╥)", "v(ಥ ̯ ಥ)v", "<('.'<)", "ಠ,ಥ", "(◕︵◕)", "(´ヘ｀()", "(✖╭╮✖)", "(◕﹏◕✿)", "(+_+)", "★~(◠︿◕✿)", "(*´д｀*)", "(◡△◡✿)", "٩(×̯×)۶", "(ノ_・。)", "┐(‘～`；)┌", "(つд｀)", "(✖╭╮✖)", "ಥ⌣ಥ", "இ_இ", "✖‿✖"];
 
-},{}],176:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -19997,4 +20127,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('app'));
 
-},{"./app":170,"react":167,"react-dom":29}]},{},[176]);
+},{"./app":172,"react":167,"react-dom":29}]},{},[178]);

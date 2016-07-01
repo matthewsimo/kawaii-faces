@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-class CopyText extends Component {
+class WebCopyText extends Component {
 
   handleClick(e) {
     const { copyText: input } = this.refs;
@@ -34,10 +34,10 @@ class CopyText extends Component {
   }
 }
 
-CopyText.propTypes = {
+WebCopyText.propTypes = {
   text: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   onCopy: PropTypes.func.isRequired
 }
 
-export default CopyText;
+export default WebCopyText;
